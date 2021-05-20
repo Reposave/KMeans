@@ -30,28 +30,37 @@ def main():
 		elif(x[0]==6):
 			centroids[2]= [x[1],x[2]]
 			x[3] = 3
-	
+			
+	print("\nCENTROIDS")
 	print(centroids)
 	
 	for x in arr:
+		x[4] = x[3]
 		a = 0
 		b = 0
 		c = 0
 		
-		#a = euclidean(
+		a = eucl_dist(centroids[0][0],centroids[0][1],x[1],x[2])
+		b = eucl_dist(centroids[1][0],centroids[1][1],x[1],x[2])
+		c = eucl_dist(centroids[2][0],centroids[2][1],x[1],x[2])
 		
-def euclidean(x2,y2,x1,y1):
+		x[3] = compare(a,b,c)
+		
+	print("\nRESULTS")
+	print(arr)
+		
+def eucl_dist(x2,y2,x1,y1):
 	return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
 		
 def compare(a,b,c):
-	if (a >= b) and (a >= c):
-   		greatest = 1
-	elif (b >= a) and (b >= c):
-   		greatest = 2
+	if (a <= b) and (a <= c):
+   		shortest = 1
+	elif (b <= a) and (b <= c):
+   		shortest = 2
 	else:
-   		greatest = 3
+   		shortest = 3
    
-	return greatest
+	return shortest
 	
 
 if __name__ == "__main__":
