@@ -15,7 +15,7 @@ def main():
 			id = id + 1
 	
 	my_file.close()
-	print(arr)
+	#print(arr)
 	
 	centroids=[[]]*3 #array of cluster centres. 
 	
@@ -31,8 +31,8 @@ def main():
 			centroids[2]= [x[1],x[2]]
 			x[3] = 3
 			
-	print("\nCENTROIDS")
-	print(centroids)
+	#print("\nCENTROIDS")
+	#print(centroids)
 	
 	check = 0
 	iteration = 1
@@ -61,28 +61,46 @@ def main():
 			x[3] = compare(a,b,c)
 			
 			if(x[3] == 1):
-					cluster1.append([x[1],x[2]])
+					cluster1.append([x[1],x[2],x[0]])
 			elif(x[3] == 2):
-					cluster2.append([x[1],x[2]])
+					cluster2.append([x[1],x[2],x[0]])
 			else:
-					cluster3.append([x[1],x[2]])
+					cluster3.append([x[1],x[2],x[0]])
 			
 			if(x[4] == x[3]):
 				check = check + 1 #count the number of points that haven't changed clusters. If it is 8, then we have reached convergence.
 				
-		print("\nIteration" + str(iteration))
+		print("Iteration " + str(iteration) + "\n")
 		iteration = iteration + 1
-		print(arr)
-		print(check)
+		
+		print("Cluster 1: ", end = '')
+		output(cluster1, centroids[0])
+		
+		print("Cluster 2: ", end = '')
+		output(cluster2, centroids[1])
+		
+		print("Cluster 3: ", end = '')
+		output(cluster3, centroids[2])
 		
 		if(check < id):
 				centroids[0] = mean_cent(cluster1)
 				centroids[1] = mean_cent(cluster2)
 				centroids[2] = mean_cent(cluster3)
 				
-		print("\nCentroids")
-		print(centroids)
-				
+		
+
+def output(cluster, centroid):
+	for i in range(0, len(cluster)):
+		if(i==(len(cluster)-1)):
+			print(cluster[i][2]+1)
+		else:
+			print(cluster[i][2]+1, end = ',')
+			
+	print("Centroid: ", end ='')
+	print(centroid)
+	print()
+		
+		
 #Calculate the new Mean centroid.
 def mean_cent(cluster):
 
