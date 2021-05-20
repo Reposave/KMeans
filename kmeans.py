@@ -34,25 +34,77 @@ def main():
 	print("\nCENTROIDS")
 	print(centroids)
 	
-	for x in arr:
-		x[4] = x[3]
-		a = 0
-		b = 0
-		c = 0
+	check = 0
+	iteration = 1
+	
+	while(check < id):
+	
+		check = 0 #Reset check counter.
 		
-		a = eucl_dist(centroids[0][0],centroids[0][1],x[1],x[2])
-		b = eucl_dist(centroids[1][0],centroids[1][1],x[1],x[2])
-		c = eucl_dist(centroids[2][0],centroids[2][1],x[1],x[2])
+		cluster1 = []
+		cluster2 = []
+		cluster3 = []
+			
+		#Find the cluster.
+		for x in arr:
 		
-		x[3] = compare(a,b,c)
+			x[4] = x[3]
+			
+			a = 0
+			b = 0
+			c = 0
+			
+			a = eucl_dist(centroids[0][0],centroids[0][1],x[1],x[2])
+			b = eucl_dist(centroids[1][0],centroids[1][1],x[1],x[2])
+			c = eucl_dist(centroids[2][0],centroids[2][1],x[1],x[2])
+			
+			x[3] = compare(a,b,c)
+			
+			if(x[3] == 1):
+					cluster1.append([x[1],x[2]])
+			elif(x[3] == 2):
+					cluster2.append([x[1],x[2]])
+			else:
+					cluster3.append([x[1],x[2]])
+			
+			if(x[4] == x[3]):
+				check = check + 1 #count the number of points that haven't changed clusters. If it is 8, then we have reached convergence.
+				
+		print("\nIteration" + str(iteration))
+		iteration = iteration + 1
+		print(arr)
+		print(check)
 		
-	print("\nRESULTS")
-	print(arr)
+		if(check < id):
+				centroids[0] = mean_cent(cluster1)
+				centroids[1] = mean_cent(cluster2)
+				centroids[2] = mean_cent(cluster3)
+				
+		print("\nCentroids")
+		print(centroids)
+				
+#Calculate the new Mean centroid.
+def mean_cent(cluster):
+
+	i = len(cluster)
+	
+	x = 0
+	y = 0
+	
+	for m in cluster:
+		x = x + m[0]
+		y = y + m[1]
 		
+	x = x/i
+	y = y/i
+	
+	return [x,y]
+	
 def eucl_dist(x2,y2,x1,y1):
 	return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
-		
-def compare(a,b,c):
+
+#Function to find the shortest distance.	
+def compare(a,b,c): 
 	if (a <= b) and (a <= c):
    		shortest = 1
 	elif (b <= a) and (b <= c):
