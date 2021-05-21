@@ -1,4 +1,5 @@
 import math
+import sys
 
 def main():
 	k = 3 #Number of clusters.
@@ -6,7 +7,14 @@ def main():
 	id = 0
 	arr = []
 	
-	my_file = open("data.txt","r")
+	filename = "data.txt"
+	
+	if(len(sys.argv) > 1):
+		filename = sys.argv[1]
+	else:
+		filename = "data.txt"
+		
+	my_file = open(filename,"r")
 	
 	for line in my_file:
 		if(line.find("#")==-1):
