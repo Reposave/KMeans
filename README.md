@@ -34,8 +34,8 @@ answers.txt is the output of the cluster iterations.
 
 .gitignore excludes binary files from the repository.
 
-#REQUIRED FORMAT.
-Lines with '#' will be skipped.
-int int
-int int
-int int
+#REQUIRED FORMAT <br />
+Lines with '#' will be skipped.<br />
+int int <br />
+int int <br />
+int int <br />
